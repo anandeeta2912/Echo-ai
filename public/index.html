@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoAI - Voice Notes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>EchoAI 🎤 </h1>
+        <p class="subtitle">Your AI Voice Assistant</p>
+
+        <!-- Speech to Text Section -->
+        <div class="card">
+            <h2>Speech → Text</h2>
+            <p>Speak into your microphone and watch it transcribe live</p>
+            <button id="startBtn">🎤 Start Listening</button>
+            <button id="stopBtn" disabled>⏹ Stop</button>
+            <div id="transcript" class="output">Your transcription will appear here...</div>
+        </div>
+
+        <!-- Text to Speech Section -->
+        <div class="card">
+            <h2>Text → Speech</h2>
+            <p>Type anything and hear it spoken back to you</p>
+            <textarea id="ttsInput" placeholder="Type something here..."></textarea>
+            <button id="speakBtn">🔊 Speak</button>
+        </div>
+    </div>
+    <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+    <script src="app.js"></script>
+</body>
+</html>
