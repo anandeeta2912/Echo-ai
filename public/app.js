@@ -9,13 +9,16 @@ let recognizer;
 let speechKey;
 let speechRegion;
 
-// Fetches config safely from the server
 async function loadConfig() {
-    const response = await fetch('/api/config');
-    const config = await response.json();
-    speechKey = config.speechKey;
-    speechRegion = config.speechRegion;
-    console.log('Config loaded successfully');
+    try {
+        const response = await fetch('/api/config');
+        if (!response.ok) throw new Error('Failed to load config');
+        const config = await response.json();
+        speechKey = config.speechKey;
+        speechRegion = config.speechRegion;
+    } catch (error) {
+        transcript.textContent = 'Error connecting to server. Please refresh.';
+    }
 }
 // SPEECH TO TEXT (STT)
 startBtn.addEventListener('click', () => {
