@@ -9,7 +9,7 @@ EchoAI is a voice notes app built with Azure AI Speech. Speak into your mic and 
 ## What it does
 
 - 🎤 Speech to Text — real time transcription from your microphone
-- 🔊 Text to Speech — types anything (Azure Neural Voice) reads it back
+- 🔊 Text to Speech — type anything, (Azure Neural Voice) reads it back
 
 ---
 
