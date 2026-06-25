@@ -1,6 +1,3 @@
-// EchoAI - Azure Speech SDK
-// Speech to Text + Text to Speech
-
 // Get UI elements
 const startBtn = document.getElementById('startBtn');
 const stopBtn = document.getElementById('stopBtn');
@@ -12,9 +9,7 @@ let recognizer;
 let speechKey;
 let speechRegion;
 
-// ================================
-// FETCH CONFIG SAFELY FROM SERVER
-// ================================
+// Fetches config safely from the server
 async function loadConfig() {
     const response = await fetch('/api/config');
     const config = await response.json();
@@ -22,22 +17,19 @@ async function loadConfig() {
     speechRegion = config.speechRegion;
     console.log('Config loaded successfully');
 }
-
-// ================================
 // SPEECH TO TEXT (STT)
-// ================================
 startBtn.addEventListener('click', () => {
     const speechConfig = SpeechSDK.SpeechConfig.fromSubscription(speechKey, speechRegion);
     const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
     
     recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
     
-    transcript.textContent = '🎤 Listening...';
+    transcript.textContent = ' Listening...';
     startBtn.disabled = true;
     stopBtn.disabled = false;
 
     recognizer.recognizing = (s, e) => {
-        transcript.textContent = '🎤 ' + e.result.text;
+        transcript.textContent = ' ' + e.result.text;
     };
 
     recognizer.recognized = (s, e) => {
@@ -57,10 +49,7 @@ stopBtn.addEventListener('click', () => {
     stopBtn.disabled = true;
     transcript.textContent = 'Stopped listening.';
 });
-
-// ================================
 // TEXT TO SPEECH (TTS)
-// ================================
 speakBtn.addEventListener('click', () => {
     const text = ttsInput.value.trim();
     
@@ -70,15 +59,16 @@ speakBtn.addEventListener('click', () => {
     }
 
     const speechConfig = SpeechSDK.SpeechConfig.fromSubscription(speechKey, speechRegion);
-    speechConfig.speechSynthesisVoiceName = 'en-US-JennyNeural';
+    speechConfig.speechSynthesisVoiceName = 'en-US-GuyNeural';
+
     
     const synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig);
     
-    speakBtn.textContent = '🔊 Speaking...';
+    speakBtn.textContent = ' Speaking...';
     speakBtn.disabled = true;
 
     synthesizer.speakTextAsync(text, result => {
-        speakBtn.textContent = '🔊 Speak';
+        speakBtn.textContent = ' Speak';
         speakBtn.disabled = false;
         synthesizer.close();
     });
