@@ -1,55 +1,32 @@
-# EchoAI 🎤
+# EchoAI - Voice Notes Web App
 
-Talk to your browser. Let it talk back.
+A futuristic voice assistant web app built with Express.js and the Azure Cognitive Services Speech SDK.
 
-EchoAI is a voice notes app built with Azure AI Speech. Speak into your mic and watch it transcribe in real time. Type anything and hear it spoken back using a neural AI voice.
+## Features
+- Speech to Text (microphone transcription)
+- Text to Speech (Indian female neural voice)
+- Animated robot mascot and futuristic UI
 
----
-
-## What it does
-
-- 🎤 Speech to Text — real time transcription from your microphone
-- 🔊 Text to Speech — type anything, (Azure Neural Voice) reads it back
-
----
-
-## Stack
-
-- Azure AI Speech (F0 free tier)
-- Azure Speech JavaScript SDK
-- Node.js + Express
-
----
-
-## Run it locally
-
-```
-git clone https://github.com/saishagoel27/EchoAI
-cd EchoAI
+## Local Development
+```bash
 npm install
+npm start
+# open http://localhost:3000
 ```
 
-Create a `.env` file:
-
+## Environment Variables
+Create `src/.env` (not committed to git):
 ```
 SPEECH_KEY=your_azure_speech_key
-SPEECH_REGION=eastus
+SPEECH_REGION=your_region   # e.g. southeastasia
 ```
 
-Then:
-
+## Deploy to Azure App Service
+```bash
+az webapp up --name echoai --resource-group echoai-rg --runtime "NODE:20-lts" --sku F1
 ```
-npm start
-```
+Then set app settings in Azure Portal (Configuration > Application settings):
+- `SPEECH_KEY`
+- `SPEECH_REGION`
 
-Open `http://localhost:3000`
-
----
-
-## Get your free Azure Speech key
-
-1. Go to portal.azure.com
-2. Create a Speech resource — Free F0 tier
-3. Copy Key 1 and your region into `.env`
-
----
+Or use Deployment Center with this GitHub repo: https://github.com/anandeeta2912/Echo-ai
