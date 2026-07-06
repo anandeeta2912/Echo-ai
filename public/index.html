@@ -3,31 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EchoAI - Voice Notes</title>
+    <title>EchoAI - Voice Tool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="stars"></div>
+    <div class="grid-bg"></div>
     <div class="container">
-        <h1>EchoAI 🎤 </h1>
-        <p class="subtitle">Your AI Voice Assistant</p>
+        <header class="header">
+            <div class="robot-container">
+                <div class="robot" id="robot">
+                    <div class="robot-antenna">
+                        <div class="antenna-ball"></div>
+                    </div>
+                    <div class="robot-head">
+                        <div class="robot-eye left">
+                            <div class="pupil"></div>
+                        </div>
+                        <div class="robot-eye right">
+                            <div class="pupil"></div>
+                        </div>
+                        <div class="robot-mouth" id="robotMouth">
+                            <div class="tooth left"></div>
+                            <div class="tooth right"></div>
+                        </div>
+                        <div class="robot-cheek left"></div>
+                        <div class="robot-cheek right"></div>
+                    </div>
+                    <div class="robot-body">
+                        <div class="body-screen">
+                            <div class="screen-text" id="robotScreen">Hi!</div>
+                        </div>
+                        <div class="body-light"></div>
+                    </div>
+                    <div class="robot-arm left"></div>
+                    <div class="robot-arm right"></div>
+                    <div class="robot-leg left"></div>
+                    <div class="robot-leg right"></div>
+                </div>
+            </div>
+            <h1 class="logo">EchoAI</h1>
+            <p class="subtitle">Your Voice Friend</p>
+        </header>
 
-        <!-- Speech to Text Section -->
-        <div class="card">
-            <h2>Speech → Text</h2>
-            <p>Speak into your microphone and watch it transcribe live</p>
-            <button id="startBtn"> Start Listening</button>
-            <button id="stopBtn" disabled>⏹ Stop</button>
-            <div id="transcript" class="output">Your transcription will appear here...</div>
-        </div>
+        <main class="cards">
+            <section class="card stt-card">
+                <div class="card-header">
+                    <div class="icon-wrapper">
+                        <svg class="mic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                            <line x1="12" y1="19" x2="12" y2="23"></line>
+                            <line x1="8" y1="23" x2="16" y2="23"></line>
+                        </svg>
+                        <div class="pulse-ring"></div>
+                    </div>
+                    <h2>Speech <span class="gradient-text">to Text</span></h2>
+                </div>
+                <p class="card-desc">Speak into your microphone and get text in real time</p>
+                <div class="viz-container" id="vizContainer">
+                    <div class="waveform" id="waveform">
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button id="startBtn" class="btn btn-start">
+                        <span class="btn-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg>
+                        </span>
+                        Start Recording
+                    </button>
+                    <button id="stopBtn" class="btn btn-stop" disabled>
+                        <span class="btn-icon">■</span>
+                        Stop Recording
+                    </button>
+                </div>
+                <div id="transcript" class="output">Your transcription will appear here...</div>
+            </section>
 
-        <!-- Text to Speech Section -->
-        <div class="card">
-            <h2>Text → Speech</h2>
-            <p>Type anything and hear it spoken back to you</p>
-            <textarea id="ttsInput" placeholder="Type something here..."></textarea>
-            <button id="speakBtn"> Speak</button>
-        </div>
+            <section class="card tts-card">
+                <div class="card-header">
+                    <div class="icon-wrapper">
+                        <svg class="sound-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                        </svg>
+                    </div>
+                    <h2>Text <span class="gradient-text">to Speech AI</span></h2>
+                </div>
+                <p class="card-desc">Type text and hear it spoken back to you</p>
+                <textarea id="ttsInput" placeholder="Type something here..." rows="3"></textarea>
+                <div class="controls">
+                    <button id="speakBtn" class="btn btn-synthesize">
+                        <span class="btn-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        </span>
+                        Speak
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>Powered by <span class="gradient-text">Azure Cognitive Services</span></p>
+        </footer>
     </div>
+
     <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
     <script src="app.js"></script>
 </body>
