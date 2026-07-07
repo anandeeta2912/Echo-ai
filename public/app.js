@@ -178,7 +178,7 @@ speakBtn.addEventListener('click', async () => {
 
             if (result.reason === SpeechSDK.ResultReason.Canceled) {
                 const err = result.errorDetails || 'Speech synthesis was canceled';
-                showError('TTS Error: ' + err);
+                showError('TTS Error: ' + err + ' (region: ' + speechRegion + ')');
                 synthesizer.close();
                 return;
             }
