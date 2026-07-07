@@ -166,8 +166,7 @@ speakBtn.addEventListener('click', async () => {
         const speechConfig = SpeechSDK.SpeechConfig.fromSubscription(speechKey, speechRegion);
         speechConfig.speechSynthesisVoiceName = 'en-US-AriaNeural';
 
-        const audioConfig = SpeechSDK.AudioConfig.fromDefaultSpeakerOutput();
-        const synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
+        const synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig);
 
         synthesizer.speakTextAsync(text, (result) => {
             console.log('TTS result reason:', result.reason);
@@ -176,16 +175,20 @@ speakBtn.addEventListener('click', async () => {
             speakBtn.textContent = ' Speak';
             speakBtn.disabled = false;
             setRobotState('idle');
-            synthesizer.close();
 
             if (result.reason === SpeechSDK.ResultReason.Canceled) {
                 const err = result.errorDetails || 'Speech synthesis was canceled';
                 showError('TTS Error: ' + err);
-            } else if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
+                synthesizer.close();
+                return;
+            }
+
+            if (result.audioData && result.audioData.byteLength > 0) {
                 transcript.textContent = 'Finished speaking.';
             } else {
-                transcript.textContent = 'Speaking completed.';
+                transcript.textContent = 'Speaking completed (no audio data).';
             }
+            synthesizer.close();
         });
     } catch (error) {
         console.error('TTS exception:', error);
@@ -199,3 +202,13 @@ speakBtn.addEventListener('click', async () => {
 window.addEventListener('DOMContentLoaded', () => {
     loadConfig();
 });
+
+function arrayBufferToBase64(buffer) {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const chunkSize = 0x8000;
+    for (let i = 0; i < bytes.length; i += chunkSize) {
+        binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
+    }
+    return btoa(binary);
+}
